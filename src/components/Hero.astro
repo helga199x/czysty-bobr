@@ -22,7 +22,7 @@ const { messages } = Astro.props;
       </div>
     </div>
     <div class="hero-mark">
-      <img class="hero-logo" src={withBase('/logo.jpeg')} alt={businessConfig.brand} width="1200" height="630" />
+      <img class="hero-logo" src={withBase('/logo.jpeg')} alt={businessConfig.brand} width="1200" height="630" fetchpriority="high" />
     </div>
   </div>
 </section>

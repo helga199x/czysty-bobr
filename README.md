@@ -79,6 +79,20 @@ The Before/After section is currently disabled by the `effects` and `beforeAfter
 
 The project does not use secrets or API keys. The default `site` is `https://helga199x.github.io` and the `base` is `/czysty-bobr`, so SEO URLs and the sitemap work without a `.env` file. The Pages workflow explicitly sets `SITE_URL` to that origin. An optional `SITE_URL` override in `.env` must contain the origin only, without the base path; `.env.example` shows the Pages value.
 
+## Search Engine Setup
+
+Each of the eight pages has localized title/description, a self-referencing canonical, PL/EN/UK/RU alternates and an `x-default` pointing to the Polish equivalent. Open Graph and Twitter cards use the existing 1200 x 630 brand image. The shared layout publishes factual LocalBusiness JSON-LD from the business and catalog configuration, without invented addresses, coordinates, ratings or reviews. Without a postal address, Google LocalBusiness rich-result eligibility is not guaranteed.
+
+After deployment, add a **URL-prefix** property for `https://helga199x.github.io/czysty-bobr/` in Google Search Console. Do not choose DNS-based Domain verification for `github.io`, which you do not own.
+
+1. Select HTML file verification and download Google's exact verification file.
+2. Place that unmodified file in `public/`, deploy, and check that the URL specified by Google serves it successfully under `/czysty-bobr/`.
+3. Complete verification and retain the file for future ownership checks.
+4. Submit `https://helga199x.github.io/czysty-bobr/sitemap.xml` in Sitemaps.
+5. Use URL Inspection and the live test for the home pages and pricing pages, then request indexing where appropriate. Monitor Page indexing for crawl errors and canonical selection.
+
+No verification file or token is fabricated in this repository. Verification does not require a tracking script. Indexing and rich results are not guaranteed by metadata alone.
+
 ## Security Audit
 
 `npm audit --omit=dev` checks the dependencies shipped with the application and currently reports no vulnerabilities. A full `npm audit` reports a high-severity advisory for `http-cache-semantics@4.2.0`, a dependency of the Astro tooling; upstream has not yet released a patched version. These packages are used only for building and are not included in `dist/` or deployed to static hosting. Do not expose the local development server publicly, and rerun the full audit when a fix becomes available.

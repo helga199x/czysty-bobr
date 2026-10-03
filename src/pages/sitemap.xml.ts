@@ -21,7 +21,9 @@ export function GET({ site }: { site?: URL }) {
           )
           .join('');
 
-        return `<url><loc>${new URL(withBase(path), site)}</loc>${alternates}</url>`;
+        const defaultPath = group.find(({ locale }) => locale === siteConfig.defaultLocale)!.path;
+        const defaultAlternate = `<xhtml:link rel="alternate" hreflang="x-default" href="${new URL(withBase(defaultPath), site)}" />`;
+        return `<url><loc>${new URL(withBase(path), site)}</loc>${alternates}${defaultAlternate}</url>`;
       })).join('')
     : '';
   const xml = [
