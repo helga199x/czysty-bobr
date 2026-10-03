@@ -4,6 +4,7 @@ import { catalogConfig } from '../config/catalog';
 import { businessConfig } from '../config/business';
 import type { LocaleMessages } from '../config/locales';
 import { siteConfig, type LocaleCode } from '../config/site';
+import { withBase } from '../config/paths';
 
 interface Props {
   locale: LocaleCode;
@@ -11,7 +12,7 @@ interface Props {
 }
 
 const { locale, messages } = Astro.props;
-const pricingHref = locale === siteConfig.defaultLocale ? '/cennik/' : `/${locale}/pricing/`;
+const pricingHref = withBase(locale === siteConfig.defaultLocale ? '/cennik/' : `/${locale}/pricing/`);
 ---
 
 <section id="cennik" class="content-section pricing-section" aria-labelledby="pricing-title">

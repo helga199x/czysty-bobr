@@ -1,6 +1,7 @@
 ---
 import type { LocaleMessages } from '../config/locales';
 import { businessConfig } from '../config/business';
+import { withBase } from '../config/paths';
 
 interface Props {
   messages: LocaleMessages;
@@ -21,7 +22,7 @@ const { messages } = Astro.props;
       </div>
     </div>
     <div class="hero-mark">
-      <img class="hero-logo" src="/logo.jpeg" alt={businessConfig.brand} width="1200" height="630" />
+      <img class="hero-logo" src={withBase('/logo.jpeg')} alt={businessConfig.brand} width="1200" height="630" />
     </div>
   </div>
 </section>

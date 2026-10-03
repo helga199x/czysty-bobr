@@ -1,6 +1,7 @@
 ---
 import type { LocaleMessages } from '../config/locales';
 import { photoPairs } from '../data/photo-pairs';
+import { withBase } from '../config/paths';
 
 interface Props {
   messages: LocaleMessages;
@@ -9,6 +10,10 @@ interface Props {
 }
 
 const { messages, showEffects, showBeforeAfterGallery } = Astro.props;
+const galleryPairs = photoPairs.map(({ before, after }) => ({
+  before: withBase(before),
+  after: withBase(after),
+}));
 ---
 
 <section
@@ -27,17 +32,17 @@ const { messages, showEffects, showBeforeAfterGallery } = Astro.props;
   )}
   {showBeforeAfterGallery && (
     <div class="container">
-      <div class="before-after-carousel" data-pair-carousel data-pairs={JSON.stringify(photoPairs)}>
+      <div class="before-after-carousel" data-pair-carousel data-pairs={JSON.stringify(galleryPairs)}>
         <button class="pair-navigation" type="button" data-pair-previous aria-label={messages.results.previous_pair}>
           <span aria-hidden="true">←</span>
         </button>
         <div class="before-after-pair" aria-live="polite">
           <figure class="before-after-photo">
-            <img data-pair-before src={photoPairs[0].before} alt={messages.results.before} width="1200" height="800" loading="lazy" decoding="async" />
+            <img data-pair-before src={galleryPairs[0].before} alt={messages.results.before} width="1200" height="800" loading="lazy" decoding="async" />
             <figcaption>{messages.results.before}</figcaption>
           </figure>
           <figure class="before-after-photo">
-            <img data-pair-after src={photoPairs[0].after} alt={messages.results.after} width="1200" height="800" loading="lazy" decoding="async" />
+            <img data-pair-after src={galleryPairs[0].after} alt={messages.results.after} width="1200" height="800" loading="lazy" decoding="async" />
             <figcaption>{messages.results.after}</figcaption>
           </figure>
         </div>

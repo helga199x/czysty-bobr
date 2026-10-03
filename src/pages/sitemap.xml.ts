@@ -1,4 +1,5 @@
 import { siteConfig } from '../config/site';
+import { withBase } from '../config/paths';
 
 const pageGroups = [
   siteConfig.locales.map((locale) => ({
@@ -16,11 +17,11 @@ export function GET({ site }: { site?: URL }) {
     ? pageGroups.flatMap((group) => group.map(({ path }) => {
         const alternates = group
           .map(({ locale, path: alternatePath }) =>
-            `<xhtml:link rel="alternate" hreflang="${locale}" href="${new URL(alternatePath, site)}" />`,
+            `<xhtml:link rel="alternate" hreflang="${locale}" href="${new URL(withBase(alternatePath), site)}" />`,
           )
           .join('');
 
-        return `<url><loc>${new URL(path, site)}</loc>${alternates}</url>`;
+        return `<url><loc>${new URL(withBase(path), site)}</loc>${alternates}</url>`;
       })).join('')
     : '';
   const xml = [

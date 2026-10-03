@@ -3,6 +3,7 @@ import { catalogConfig } from '../config/catalog';
 import { businessConfig } from '../config/business';
 import type { LocaleMessages } from '../config/locales';
 import type { LocaleCode } from '../config/site';
+import { withBase } from '../config/paths';
 
 interface Props {
   locale: LocaleCode;
@@ -10,7 +11,7 @@ interface Props {
 }
 
 const { locale, messages } = Astro.props;
-const contactHref = locale === 'pl' ? '/#kontakt' : `/${locale}/#kontakt`;
+const contactHref = withBase(locale === 'pl' ? '/#kontakt' : `/${locale}/#kontakt`);
 const travelFreeCopy = messages.pricing.travel_free_copy
   .replace('{city}', catalogConfig.travel.city)
   .replace('{city_genitive}', catalogConfig.travel.city_pl_genitive)

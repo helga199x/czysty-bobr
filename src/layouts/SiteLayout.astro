@@ -5,6 +5,7 @@ import SiteHeader from '../components/SiteHeader.astro';
 import SiteFooter from '../components/SiteFooter.astro';
 import { businessConfig } from '../config/business';
 import type { LocaleMessages } from '../config/locales';
+import { withBase } from '../config/paths';
 
 interface Props {
   locale: LocaleCode;
@@ -14,7 +15,7 @@ interface Props {
 }
 
 const { locale, messages, canonicalPath, pageKind = 'home' } = Astro.props;
-const canonicalUrl = Astro.site ? new URL(canonicalPath, Astro.site).toString() : undefined;
+const canonicalUrl = Astro.site ? new URL(withBase(canonicalPath), Astro.site).toString() : undefined;
 const alternateLocales = siteConfig.locales.map((code) => ({
   code,
   href: pageKind === 'pricing'
@@ -41,10 +42,10 @@ const description = pageKind === 'pricing' ? messages.pricing.seo_description : 
     {canonicalUrl && <link rel="canonical" href={canonicalUrl} />}
     {canonicalUrl && <meta property="og:url" content={canonicalUrl} />}
     {Astro.site && alternateLocales.map(({ code, href }) => (
-      <link rel="alternate" hreflang={code} href={Astro.site ? new URL(href, Astro.site).toString() : href} />
+      <link rel="alternate" hreflang={code} href={Astro.site ? new URL(withBase(href), Astro.site).toString() : withBase(href)} />
     ))}
-    {Astro.site && <link rel="alternate" hreflang="x-default" href={Astro.site.toString()} />}
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    {Astro.site && <link rel="alternate" hreflang="x-default" href={new URL(withBase('/'), Astro.site).toString()} />}
+    <link rel="icon" type="image/svg+xml" href={withBase('/favicon.svg')} />
   </head>
   <body>
     <SiteHeader locale={locale} messages={messages} pageKind={pageKind} />

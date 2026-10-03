@@ -45,7 +45,17 @@ npm run build
 npm run preview
 ```
 
-The generated static files are written to `dist/`. They can be deployed to any static hosting provider; Node.js is not required on the server after deployment.
+The generated static files are written to `dist/`. Node.js is not required on the server after deployment. The site is configured with the `/czysty-bobr/` base path, including local development and preview URLs.
+
+## GitHub Pages Deployment
+
+The public URL is `https://helga199x.github.io/czysty-bobr/`. No custom domain, backend, API keys, or repository secrets are required.
+
+In `helga199x/czysty-bobr`, open **Settings > Pages** and select **GitHub Actions** as the source under **Build and deployment**. Leave **Custom domain** empty. If Actions are disabled, enable the required GitHub actions under **Settings > Actions > General**. If the `github-pages` environment has deployment branch restrictions, allow `master`.
+
+The workflow in `.github/workflows/deploy.yml` runs on pushes to `master` or manually from **Actions > Deploy to GitHub Pages > Run workflow**. It uses Node.js 22, runs `npm ci`, `npm run check`, and `npm run build`, uploads `dist/`, and deploys it to Pages. Deployment requires a successful build. The workflow grants Pages write and OIDC permissions only to the deployment job.
+
+After pushing, wait for both workflow jobs to succeed before opening the public URL. For a free GitHub account, the repository must be public to use Pages.
 
 ## Translations and Adding a Language
 
@@ -54,6 +64,8 @@ The generated static files are written to `dist/`. They can be deployed to any s
 - Ukrainian: `src/locales/uk.yml`, URL `/uk/`.
 - Russian: `src/locales/ru.yml`, URL `/ru/`.
 - Full price list: `/cennik/`, `/en/pricing/`, `/uk/pricing/`, `/ru/pricing/`.
+
+All these routes are prefixed with `/czysty-bobr/` in browser URLs. Use `withBase` from `src/config/paths.ts` for internal links and public asset paths.
 
 To add a language, create a YAML file with the same key structure as `pl.yml`, add the locale code to `src/config/site.ts`, import the file, and add it to the map in `src/config/locales.ts`. Add the corresponding price-list path in `src/components/SiteHeader.astro` and `src/pages/sitemap.xml.ts`. Translate all sections, then run `npm run check` and `npm run build`.
 
@@ -65,7 +77,7 @@ The Before/After section is currently disabled by the `effects` and `beforeAfter
 
 ## Environment Variables
 
-The project does not use secrets or API keys. `SITE_URL` is optional for local development, but must be set for a production build to generate absolute canonical, `og:url`, and `hreflang` URLs and populate the sitemap. Set the public HTTPS URL of the site in `.env`, using `.env.example` as a reference.
+The project does not use secrets or API keys. The default `site` is `https://helga199x.github.io` and the `base` is `/czysty-bobr`, so SEO URLs and the sitemap work without a `.env` file. The Pages workflow explicitly sets `SITE_URL` to that origin. An optional `SITE_URL` override in `.env` must contain the origin only, without the base path; `.env.example` shows the Pages value.
 
 ## Security Audit
 
@@ -75,6 +87,6 @@ The project does not use secrets or API keys. `SITE_URL` is optional for local d
 
 - Verify the phone number, email, WhatsApp number, and business hours in `src/data/business.yml`.
 - Verify real photos of completed work before enabling the Before/After gallery.
-- Set `SITE_URL` to enable absolute SEO URLs.
+- Verify that generated SEO URLs use `https://helga199x.github.io/czysty-bobr/`.
 
-Astro generates `dist/robots.txt` and `dist/sitemap.xml`. To deploy, publish the contents of `dist/` to a static hosting provider; no application server is required.
+Astro generates `dist/robots.txt` and `dist/sitemap.xml`. GitHub Pages serves them under `/czysty-bobr/`; the project-level robots file cannot control the account-wide root `/robots.txt`. Publish `dist/` through the Pages workflow; no application server is required.

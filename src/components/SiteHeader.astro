@@ -2,6 +2,7 @@
 import { siteConfig, type LocaleCode } from '../config/site';
 import { businessConfig } from '../config/business';
 import type { LocaleMessages } from '../config/locales';
+import { withBase } from '../config/paths';
 
 interface Props {
   locale: LocaleCode;
@@ -13,8 +14,8 @@ const { locale, messages, pageKind } = Astro.props;
 const locales = siteConfig.locales;
 const [brandLead, ...brandRest] = businessConfig.brand.split(' ');
 const showEffectsLink = businessConfig.features.effects || businessConfig.features.beforeAfterGallery;
-const localeHref = (code: LocaleCode) => code === 'pl' ? '/' : `/${code}/`;
-const pricingHref = (code: LocaleCode) => code === 'pl' ? '/cennik/' : `/${code}/pricing/`;
+const localeHref = (code: LocaleCode) => withBase(code === 'pl' ? '/' : `/${code}/`);
+const pricingHref = (code: LocaleCode) => withBase(code === 'pl' ? '/cennik/' : `/${code}/pricing/`);
 const languageHref = (code: LocaleCode) => pageKind === 'pricing' ? pricingHref(code) : localeHref(code);
 const homeSectionHref = (id: string) => pageKind === 'home' ? `#${id}` : `${localeHref(locale)}#${id}`;
 ---
