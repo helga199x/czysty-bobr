@@ -20,11 +20,8 @@ const { messages } = Astro.props;
         <a class="button button-outline" href="#uslugi">{messages.hero.secondary_action}</a>
       </div>
     </div>
-    <div class="hero-mark" aria-label={messages.hero.brand_art_label} role="img">
-      <span class="hero-mark-ring" aria-hidden="true"></span>
-      <span class="hero-mark-letter" aria-hidden="true">{businessConfig.brand.split(' ').at(-1)?.slice(0, 1).toUpperCase()}</span>
-      <span class="hero-mark-name" aria-hidden="true">{businessConfig.brand.toUpperCase()}</span>
-      <span class="hero-mark-caption" aria-hidden="true">{messages.hero.brand_caption}</span>
+    <div class="hero-mark">
+      <img class="hero-logo" src="/logo.jpeg" alt={businessConfig.brand} width="1200" height="630" />
     </div>
   </div>
 </section>

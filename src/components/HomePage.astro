@@ -4,6 +4,7 @@ import Services from './Services.astro';
 import Pricing from './Pricing.astro';
 import Results from './Results.astro';
 import Contact from './Contact.astro';
+import { businessConfig } from '../config/business';
 import type { LocaleMessages } from '../config/locales';
 
 interface Props {
@@ -17,5 +18,11 @@ const { locale, messages } = Astro.props;
 <Hero messages={messages} />
 <Services messages={messages} />
 <Pricing locale={locale} messages={messages} />
-<Results messages={messages} />
+{(businessConfig.features.effects || businessConfig.features.beforeAfterGallery) && (
+  <Results
+    messages={messages}
+    showEffects={businessConfig.features.effects}
+    showBeforeAfterGallery={businessConfig.features.beforeAfterGallery}
+  />
+)}
 <Contact messages={messages} />

@@ -59,7 +59,9 @@ To add a language, create a YAML file with the same key structure as `pl.yml`, a
 
 ## Editing Content and Prices
 
-Localized copy is stored in `src/locales/*.yml`. Full price-list and summary prices are in `src/data/catalog.yml`; the brand name, year, currency, phone, email, WhatsApp number, and business hours are in `src/data/business.yml`. The order and icons of the services on the home page are defined in `src/data/catalog.ts`. Contact fields are intentionally empty until the real details are provided.
+Localized copy is stored in `src/locales/*.yml`. Full price-list and summary prices are in `src/data/catalog.yml`; the brand name, year, currency, phone, email, WhatsApp number, and business hours are in `src/data/business.yml`. The order and icons of the services on the home page are defined in `src/data/catalog.ts`. Contact details and working hours are configured; verify them before publishing.
+
+The Before/After section is currently disabled by the `effects` and `beforeAfterGallery` flags in `src/data/business.yml`. The carousel uses `src/data/photo-pairs.ts` and `src/scripts/gallery.js`. Verify the photos in `public/` before enabling the gallery.
 
 ## Environment Variables
 
@@ -71,8 +73,8 @@ The project does not use secrets or API keys. `SITE_URL` is optional for local d
 
 ## Before Publishing
 
-- Add the phone number, email, WhatsApp number, and business hours to `src/data/business.yml` if they should be displayed.
-- Add real photos of completed work.
+- Verify the phone number, email, WhatsApp number, and business hours in `src/data/business.yml`.
+- Verify real photos of completed work before enabling the Before/After gallery.
 - Set `SITE_URL` to enable absolute SEO URLs.
 
 Astro generates `dist/robots.txt` and `dist/sitemap.xml`. To deploy, publish the contents of `dist/` to a static hosting provider; no application server is required.

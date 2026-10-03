@@ -2,12 +2,41 @@
 import { catalogConfig } from '../config/catalog';
 import { businessConfig } from '../config/business';
 import type { LocaleMessages } from '../config/locales';
+import type { LocaleCode } from '../config/site';
 
 interface Props {
+  locale: LocaleCode;
   messages: LocaleMessages;
 }
 
-const { messages } = Astro.props;
+const { locale, messages } = Astro.props;
+const contactHref = locale === 'pl' ? '/#kontakt' : `/${locale}/#kontakt`;
+const travelFreeCopy = messages.pricing.travel_free_copy
+  .replace('{city}', catalogConfig.travel.city)
+  .replace('{city_genitive}', catalogConfig.travel.city_pl_genitive)
+  .replace('{amount}', `${catalogConfig.travel.free_from_order} ${businessConfig.currency}`);
+const sections = [
+  {
+    title: messages.pricing.furniture_category,
+    icon: catalogConfig.section_icons.furniture,
+    items: catalogConfig.furniture,
+  },
+  {
+    title: messages.pricing.cars_category,
+    icon: catalogConfig.section_icons.cars,
+    items: catalogConfig.cars,
+  },
+  {
+    title: messages.pricing.car_additional_category,
+    icon: catalogConfig.section_icons.car_additional_services,
+    items: catalogConfig.car_additional_services,
+  },
+  {
+    title: messages.pricing.furniture_additional_category,
+    icon: catalogConfig.section_icons.furniture_additional_services,
+    items: catalogConfig.furniture_additional_services,
+  },
+];
 ---
 
 <section class="content-section full-pricing" aria-labelledby="full-pricing-title">
@@ -17,36 +46,40 @@ const { messages } = Astro.props;
       <p>{messages.pricing.page_description}</p>
     </header>
 
-    <section class="full-price-section" aria-labelledby="furniture-prices-title">
-      <h2 id="furniture-prices-title">{messages.pricing.furniture_category}</h2>
-      <div class="full-price-table" role="table" aria-label={messages.pricing.furniture_category}>
-        <div class="full-price-row full-price-head" role="row">
-          <span role="columnheader">{messages.pricing.service_column}</span>
-          <span role="columnheader">{messages.pricing.price_column}</span>
-        </div>
-        {catalogConfig.furniture.map((item) => (
-          <div class="full-price-row" role="row">
-            <span role="cell">{messages.pricing.services[item.id]}</span>
-            <strong role="cell">{item.price} {businessConfig.currency}</strong>
+    <div class="pricing-categories">
+      {sections.map((section, sectionIndex) => (
+        <section class="price-category" aria-labelledby={`price-category-${sectionIndex}`}>
+          <div class="price-category-heading">
+            <span class="price-category-icon" aria-hidden="true">{section.icon}</span>
+            <h2 id={`price-category-${sectionIndex}`}>{section.title}</h2>
           </div>
-        ))}
-      </div>
-    </section>
+          <div class="price-service-grid">
+            {section.items.map((item) => (
+              <article class="price-service-card">
+                <h3>{messages.pricing.services[item.id]}</h3>
+                <p class="price-service-amount">
+                  {item.qualifier === 'from' && `${messages.pricing.from} `}
+                  {item.qualifier === 'surcharge' && '+'}
+                  {item.price} {businessConfig.currency}
+                </p>
+              </article>
+            ))}
+          </div>
+          <a class="button pricing-booking" href={contactHref}>{messages.pricing.booking_cta}</a>
+        </section>
+      ))}
+    </div>
 
-    <section class="full-price-section" aria-labelledby="car-prices-title">
-      <h2 id="car-prices-title">{messages.pricing.cars_category}</h2>
-      <div class="full-price-table" role="table" aria-label={messages.pricing.cars_category}>
-        <div class="full-price-row full-price-head" role="row">
-          <span role="columnheader">{messages.pricing.service_column}</span>
-          <span role="columnheader">{messages.pricing.price_column}</span>
-        </div>
-        {catalogConfig.cars.map((item) => (
-          <div class="full-price-row" role="row">
-            <span role="cell">{messages.pricing.services[item.id]}</span>
-            <strong role="cell">{item.price} {businessConfig.currency}</strong>
-          </div>
-        ))}
+    <aside class="travel-card" aria-labelledby="travel-title">
+      <span class="travel-card-icon" aria-hidden="true">{catalogConfig.travel.icon}</span>
+      <div class="travel-card-copy">
+        <h2 id="travel-title">{messages.pricing.travel_title}</h2>
+        <p>{travelFreeCopy}</p>
+        <p><strong>{messages.pricing.minimum_order_label}</strong> {catalogConfig.travel.minimum_order} {businessConfig.currency}.</p>
+        <p class="travel-area-note">{messages.pricing.service_area_note.replace('{city}', catalogConfig.travel.city)}</p>
       </div>
-    </section>
+    </aside>
+
+    <p class="price-disclaimer">{messages.pricing.price_disclaimer}</p>
   </div>
 </section>

@@ -2,6 +2,11 @@ overview:
   chair: "40"
   sofa: "160"
   car: "80"
+section_icons:
+  furniture: "🛋️"
+  cars: "🚗"
+  car_additional_services: "✨"
+  furniture_additional_services: "✨"
 furniture:
   - id: armchair
     price: "80"
@@ -28,3 +33,61 @@ cars:
     price: "80"
   - id: complete_cleaning
     price: "500"
+car_additional_services:
+  - id: car_pet_hair_heavy
+    price: "80"
+    qualifier: "from"
+  - id: car_odor_neutralization
+    price: "50"
+    qualifier: "from"
+  - id: car_cigarette_odor
+    price: "80"
+    qualifier: "from"
+  - id: car_pet_odor
+    price: "80"
+    qualifier: "from"
+  - id: car_ozonation
+    price: "80"
+  - id: car_upholstery_impregnation
+    price: "50"
+    qualifier: "from"
+  - id: car_seat_impregnation
+    price: "30"
+    qualifier: "from"
+  - id: car_heavy_soiling
+    price: "30–80"
+    qualifier: "surcharge"
+  - id: car_stain_treatment
+    price: "20"
+    qualifier: "from"
+  - id: leather_upholstery
+    price: "150"
+    qualifier: "from"
+furniture_additional_services:
+  - id: furniture_pet_hair
+    price: "30"
+    qualifier: "from"
+  - id: furniture_odor_neutralization
+    price: "40"
+    qualifier: "from"
+  - id: furniture_impregnation
+    price: "50"
+    qualifier: "from"
+  - id: furniture_heavy_soiling
+    price: "30–100"
+    qualifier: "surcharge"
+  - id: urine_vomit_stains
+    price: "50"
+    qualifier: "from"
+  - id: furniture_pet_odor
+    price: "50"
+    qualifier: "from"
+  - id: furniture_disinfection
+    price: "30"
+    qualifier: "from"
+travel:
+  icon: "🚐"
+  city: "Wrocław"
+  city_pl_genitive: "Wrocławia"
+  free_from_order: 150
+  minimum_order: 150

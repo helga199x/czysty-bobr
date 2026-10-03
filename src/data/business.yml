@@ -1,11 +1,21 @@
 brand: "Czysty Bóbr"
 copyright_year: 2026
 currency: "zł"
+features:
+  beforeAfterGallery: false
+  effects: false
 contact:
-  phone: ""
-  email: ""
-  whatsapp: ""
+  phone: "+48889384935"
+  email: "czystybobr@gmail.com"
+  whatsapp: "+48889384935"
+  working_days:
+    - monday
+    - tuesday
+    - wednesday
+    - thursday
+    - friday
+    - saturday
+    - sunday
   working_hours:
-    monday_friday: ""
-    saturday: ""
-    sunday: ""
+    start: "10:00"
+    end: "22:00"

@@ -8,9 +8,14 @@ interface Props {
 
 const { messages } = Astro.props;
 const contact = businessConfig.contact;
-const phoneHref = contact.phone ? `tel:${contact.phone.replace(/[^\d+]/g, '')}` : undefined;
+const hasContactValue = (value: string) => value.length > 0 && !value.startsWith('ADD_');
+const phoneHref = hasContactValue(contact.phone) ? `tel:${contact.phone.replace(/[^\d+]/g, '')}` : undefined;
 const whatsappNumber = contact.whatsapp.replace(/\D/g, '');
-const whatsappHref = whatsappNumber ? `https://wa.me/${whatsappNumber}` : undefined;
+const whatsappHref = hasContactValue(contact.whatsapp) && whatsappNumber ? `https://wa.me/${whatsappNumber}` : undefined;
+const workingDayLabels = contact.working_days.map((day) => messages.contact.weekdays[day]);
+const workingDaysLabel = workingDayLabels.length > 1
+  ? `${workingDayLabels[0]}–${workingDayLabels.at(-1)}`
+  : workingDayLabels[0] ?? messages.contact.not_provided;
 ---
 
 <section class="contact-callout" aria-labelledby="callout-title">
@@ -43,16 +48,21 @@ const whatsappHref = whatsappNumber ? `https://wa.me/${whatsappNumber}` : undefi
       </article>
       <article class="contact-method">
         <h3>{messages.contact.email}</h3>
-        {contact.email
+        {hasContactValue(contact.email)
           ? <a href={`mailto:${contact.email}`}>{contact.email}</a>
           : <p>{messages.contact.not_provided}</p>}
       </article>
       <article class="contact-method contact-hours">
         <h3>{messages.contact.working_hours}</h3>
         <dl>
-          <div><dt>{messages.contact.monday_friday}</dt><dd>{contact.working_hours.monday_friday || messages.contact.not_provided}</dd></div>
-          <div><dt>{messages.contact.saturday}</dt><dd>{contact.working_hours.saturday || messages.contact.not_provided}</dd></div>
-          <div><dt>{messages.contact.sunday}</dt><dd>{contact.working_hours.sunday || messages.contact.not_provided}</dd></div>
+          <div>
+            <dt>{messages.contact.working_days}</dt>
+            <dd>{workingDaysLabel}</dd>
+          </div>
+          <div>
+            <dt>{messages.contact.working_hours}</dt>
+            <dd>{contact.working_hours.start}–{contact.working_hours.end}</dd>
+          </div>
         </dl>
       </article>
     </div>

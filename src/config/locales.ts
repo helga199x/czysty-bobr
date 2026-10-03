@@ -4,6 +4,7 @@ import plSource from '../locales/pl.yml?raw';
 import ruSource from '../locales/ru.yml?raw';
 import ukSource from '../locales/uk.yml?raw';
 import type { LocaleCode } from './site';
+import type { Weekday } from './business';
 import type { DetailedPriceId, PriceCategory } from '../data/catalog';
 
 type ServiceCategory = 'furniture' | 'car' | 'textiles';
@@ -48,12 +49,27 @@ export interface LocaleMessages {
     full_list_link: string;
     furniture_category: string;
     cars_category: string;
+    car_additional_category: string;
+    furniture_additional_category: string;
     service_column: string;
     price_column: string;
+    booking_cta: string;
+    travel_title: string;
+    travel_free_copy: string;
+    minimum_order_label: string;
+    service_area_note: string;
+    price_disclaimer: string;
     services: Record<DetailedPriceId, string>;
     items: Record<PriceCategory, { name: string; note: string }>;
   };
-  results: { title: string; description: string; before: string; after: string };
+  results: {
+    title: string;
+    description: string;
+    before: string;
+    after: string;
+    previous_pair: string;
+    next_pair: string;
+  };
   callout: { title: string; description: string; action: string };
   contact: {
     eyebrow: string;
@@ -63,9 +79,8 @@ export interface LocaleMessages {
     email: string;
     whatsapp: string;
     working_hours: string;
-    monday_friday: string;
-    saturday: string;
-    sunday: string;
+    working_days: string;
+    weekdays: Record<Weekday, string>;
     not_provided: string;
   };
   footer: { description: string };

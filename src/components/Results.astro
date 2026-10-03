@@ -1,28 +1,53 @@
 ---
 import type { LocaleMessages } from '../config/locales';
+import { photoPairs } from '../data/photo-pairs';
 
 interface Props {
   messages: LocaleMessages;
+  showEffects: boolean;
+  showBeforeAfterGallery: boolean;
 }
 
-const { messages } = Astro.props;
+const { messages, showEffects, showBeforeAfterGallery } = Astro.props;
 ---
 
-<section id="efekty" class="content-section" aria-labelledby="results-title">
-  <div class="container">
-    <div class="section-heading">
-      <h2 id="results-title">{messages.results.title}</h2>
-      <p>{messages.results.description}</p>
+<section
+  id="efekty"
+  class="content-section"
+  aria-labelledby={showEffects ? 'results-title' : undefined}
+  aria-label={!showEffects && showBeforeAfterGallery ? messages.results.title : undefined}
+>
+  {showEffects && (
+    <div class="container">
+      <div class="section-heading">
+        <h2 id="results-title">{messages.results.title}</h2>
+        <p>{messages.results.description}</p>
+      </div>
     </div>
-    <div class="results-grid">
-      <figure class="result-placeholder">
-        <span aria-hidden="true">01</span>
-        <figcaption>{messages.results.before}</figcaption>
-      </figure>
-      <figure class="result-placeholder result-after">
-        <span aria-hidden="true">02</span>
-        <figcaption>{messages.results.after}</figcaption>
-      </figure>
+  )}
+  {showBeforeAfterGallery && (
+    <div class="container">
+      <div class="before-after-carousel" data-pair-carousel data-pairs={JSON.stringify(photoPairs)}>
+        <button class="pair-navigation" type="button" data-pair-previous aria-label={messages.results.previous_pair}>
+          <span aria-hidden="true">←</span>
+        </button>
+        <div class="before-after-pair" aria-live="polite">
+          <figure class="before-after-photo">
+            <img data-pair-before src={photoPairs[0].before} alt={messages.results.before} width="1200" height="800" loading="lazy" decoding="async" />
+            <figcaption>{messages.results.before}</figcaption>
+          </figure>
+          <figure class="before-after-photo">
+            <img data-pair-after src={photoPairs[0].after} alt={messages.results.after} width="1200" height="800" loading="lazy" decoding="async" />
+            <figcaption>{messages.results.after}</figcaption>
+          </figure>
+        </div>
+        <button class="pair-navigation" type="button" data-pair-next aria-label={messages.results.next_pair}>
+          <span aria-hidden="true">→</span>
+        </button>
+        <p class="visually-hidden" data-pair-counter aria-live="polite">1 / {photoPairs.length}</p>
+      </div>
     </div>
-  </div>
+  )}
 </section>
+
+{showBeforeAfterGallery && <script>import '../scripts/gallery.js';</script>}

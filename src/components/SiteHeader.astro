@@ -12,6 +12,7 @@ interface Props {
 const { locale, messages, pageKind } = Astro.props;
 const locales = siteConfig.locales;
 const [brandLead, ...brandRest] = businessConfig.brand.split(' ');
+const showEffectsLink = businessConfig.features.effects || businessConfig.features.beforeAfterGallery;
 const localeHref = (code: LocaleCode) => code === 'pl' ? '/' : `/${code}/`;
 const pricingHref = (code: LocaleCode) => code === 'pl' ? '/cennik/' : `/${code}/pricing/`;
 const languageHref = (code: LocaleCode) => pageKind === 'pricing' ? pricingHref(code) : localeHref(code);
@@ -26,7 +27,7 @@ const homeSectionHref = (id: string) => pageKind === 'home' ? `#${id}` : `${loca
     <nav class="desktop-nav" aria-label={messages.navigation.label}>
       <a href={homeSectionHref('uslugi')}>{messages.navigation.services}</a>
       <a href={pricingHref(locale)} aria-current={pageKind === 'pricing' ? 'page' : undefined}>{messages.navigation.pricing}</a>
-      <a href={homeSectionHref('efekty')}>{messages.navigation.results}</a>
+      {showEffectsLink && <a href={homeSectionHref('efekty')}>{messages.navigation.results}</a>}
       <a href={homeSectionHref('kontakt')}>{messages.navigation.contact}</a>
     </nav>
     <div class="header-actions">
@@ -42,14 +43,14 @@ const homeSectionHref = (id: string) => pageKind === 'home' ? `#${id}` : `${loca
           </a>
         ))}
       </nav>
-      <a class="button button-small" href={homeSectionHref('kontakt')}>{messages.navigation.quote}</a>
+      <a class="button button-small" href={homeSectionHref('cennik')}>{messages.navigation.quote}</a>
     </div>
     <details class="mobile-menu">
       <summary aria-label={messages.navigation.open_menu}><span></span><span></span><span></span></summary>
       <nav aria-label={messages.navigation.label}>
         <a href={homeSectionHref('uslugi')}>{messages.navigation.services}</a>
         <a href={pricingHref(locale)} aria-current={pageKind === 'pricing' ? 'page' : undefined}>{messages.navigation.pricing}</a>
-        <a href={homeSectionHref('efekty')}>{messages.navigation.results}</a>
+        {showEffectsLink && <a href={homeSectionHref('efekty')}>{messages.navigation.results}</a>}
         <a href={homeSectionHref('kontakt')}>{messages.navigation.contact}</a>
       </nav>
     </details>
