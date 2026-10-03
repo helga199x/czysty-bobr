@@ -7,14 +7,15 @@ import Contact from './Contact.astro';
 import type { LocaleMessages } from '../config/locales';
 
 interface Props {
+  locale: import('../config/site').LocaleCode;
   messages: LocaleMessages;
 }
 
-const { messages } = Astro.props;
+const { locale, messages } = Astro.props;
 ---
 
 <Hero messages={messages} />
 <Services messages={messages} />
-<Pricing messages={messages} />
+<Pricing locale={locale} messages={messages} />
 <Results messages={messages} />
 <Contact messages={messages} />

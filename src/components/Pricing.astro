@@ -1,13 +1,17 @@
 ---
 import { priceCategories } from '../data/catalog';
+import { catalogConfig } from '../config/catalog';
 import { businessConfig } from '../config/business';
 import type { LocaleMessages } from '../config/locales';
+import { siteConfig, type LocaleCode } from '../config/site';
 
 interface Props {
+  locale: LocaleCode;
   messages: LocaleMessages;
 }
 
-const { messages } = Astro.props;
+const { locale, messages } = Astro.props;
+const pricingHref = locale === siteConfig.defaultLocale ? '/cennik/' : `/${locale}/pricing/`;
 ---
 
 <section id="cennik" class="content-section pricing-section" aria-labelledby="pricing-title">
@@ -22,11 +26,12 @@ const { messages } = Astro.props;
         return (
         <article class="price-item">
           <h3>{item.name}</h3>
-          <p class="price-amount">{messages.pricing.from} {businessConfig.prices[category]} {businessConfig.currency}</p>
+          <p class="price-amount">{messages.pricing.from} {catalogConfig.overview[category]} {businessConfig.currency}</p>
           <p class="price-note">{item.note}</p>
         </article>
         );
       })}
     </div>
+    <a class="button pricing-more" href={pricingHref}>{messages.pricing.full_list_link}<span aria-hidden="true">→</span></a>
   </div>
 </section>

@@ -6,8 +6,8 @@ Statyczna, wielojęzyczna strona firmy oferującej mobilne czyszczenie tapicerki
 
 - Astro 7 generuje semantyczny HTML dla każdej wersji językowej.
 - Pliki YAML zawierają wszystkie tłumaczenia; pakiet `yaml` odczytuje je podczas kompilacji.
-- CSS i niewielki moduł JavaScript odpowiadają za wygląd i demonstracyjny komunikat formularza.
-- Formularz nie wysyła danych. Przed publikacją należy podłączyć usługę formularzy lub własny endpoint.
+- CSS odpowiada za wygląd, a strona nie wymaga kodu JavaScript do nawigacji ani wyświetlania treści.
+- Kontakty są prezentowane jako klikalne linki; formularz ani backend nie są używane.
 
 ## Struktura projektu
 
@@ -19,7 +19,6 @@ src/
   layouts/      Wspólny dokument HTML i metadane SEO
   locales/      Tłumaczenia pl, en, uk i ru
   pages/        Statyczne strony językowe
-  scripts/      Obsługa formularza
   styles/       Główny arkusz stylów
 public/         Favicon i zasoby statyczne
 ```
@@ -54,12 +53,13 @@ Gotowe pliki statyczne znajdą się w `dist/`. Można je wdrożyć na dowolnym h
 - Angielski: `src/locales/en.yml`, adres `/en/`.
 - Ukraiński: `src/locales/uk.yml`, adres `/uk/`.
 - Rosyjski: `src/locales/ru.yml`, adres `/ru/`.
+- Pełny cennik: `/cennik/`, `/en/pricing/`, `/uk/pricing/`, `/ru/pricing/`.
 
-Aby dodać język, utwórz plik YAML z taką samą strukturą kluczy jak w `pl.yml`, dodaj kod języka w `src/config/site.ts`, zaimportuj plik i dopisz go do mapy w `src/config/locales.ts`. Przetłumacz wszystkie sekcje, a następnie uruchom `npm run check` i `npm run build`. Strony są generowane statycznie, a przełącznik języka znajduje się w nagłówku.
+Aby dodać język, utwórz plik YAML z taką samą strukturą kluczy jak w `pl.yml`, dodaj kod języka w `src/config/site.ts`, zaimportuj plik i dopisz go do mapy w `src/config/locales.ts`. Dodaj odpowiednią ścieżkę cennika w `src/components/SiteHeader.astro` i `src/pages/sitemap.xml.ts`. Przetłumacz wszystkie sekcje, a następnie uruchom `npm run check` i `npm run build`.
 
 ## Edycja treści i cen
 
-Teksty poszczególnych wersji językowych znajdują się w `src/locales/*.yml`. Ceny, waluta, nazwa marki i rok praw autorskich są wspólne i edytowane w `src/data/business.yml`. Kolejność usług, kategorie cen i ikony są zdefiniowane w `src/data/catalog.ts`. Dane kontaktowe i prawdziwe ceny należy uzupełnić przed publikacją.
+Teksty poszczególnych wersji językowych znajdują się w `src/locales/*.yml`. Ceny pełnego cennika i skróconego przeglądu są w `src/data/catalog.yml`; nazwa marki, rok, waluta oraz telefon, e-mail, WhatsApp i godziny pracy znajdują się w `src/data/business.yml`. Kolejność i ikony usług na stronie głównej znajdują się w `src/data/catalog.ts`. Dane kontaktowe są celowo puste do czasu uzupełnienia prawdziwych wartości.
 
 ## Zmienne środowiskowe
 
@@ -71,9 +71,8 @@ Projekt nie używa sekretów ani kluczy API. `SITE_URL` jest opcjonalny lokalnie
 
 ## Przed publikacją
 
-- Zastąp wartości `XX` w `src/data/business.yml` zatwierdzonymi cenami.
-- Dodaj prawdziwe zdjęcia z realizacji oraz aktualne dane kontaktowe właściciela.
-- Podłącz wysyłkę formularza; obecna wersja informuje, że wysyłanie nie jest jeszcze skonfigurowane.
+- Uzupełnij telefon, e-mail, WhatsApp i godziny pracy w `src/data/business.yml`, jeśli mają być widoczne.
+- Dodaj prawdziwe zdjęcia z realizacji.
 - Ustaw `SITE_URL`, aby włączyć bezwzględne adresy SEO.
 
 Astro generuje `dist/robots.txt` i `dist/sitemap.xml`. Wdrożenie polega na opublikowaniu zawartości katalogu `dist/` na hostingu statycznym; serwer aplikacji nie jest potrzebny.

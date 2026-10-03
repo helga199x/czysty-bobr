@@ -1,0 +1,19 @@
+---
+import SiteLayout from '../../layouts/SiteLayout.astro';
+import PricingPage from '../../components/PricingPage.astro';
+import { getTranslations } from '../../config/locales';
+import { siteConfig, type LocaleCode } from '../../config/site';
+
+export function getStaticPaths() {
+  return siteConfig.locales
+    .filter((locale) => locale !== siteConfig.defaultLocale)
+    .map((locale) => ({ params: { lang: locale } }));
+}
+
+const locale = Astro.params.lang as LocaleCode;
+const messages = getTranslations(locale);
+---
+
+<SiteLayout locale={locale} messages={messages} canonicalPath={`/${locale}/pricing/`} pageKind="pricing">
+  <PricingPage messages={messages} />
+</SiteLayout>

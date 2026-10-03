@@ -1,0 +1,30 @@
+overview:
+  chair: "40"
+  sofa: "160"
+  car: "80"
+furniture:
+  - id: armchair
+    price: "80"
+  - id: chair
+    price: "40"
+  - id: sofa_two_seat
+    price: "160"
+  - id: sofa_three_seat
+    price: "200"
+  - id: small_corner_sofa
+    price: "200"
+  - id: large_corner_sofa
+    price: "260"
+  - id: single_mattress
+    price: "100"
+cars:
+  - id: single_seat
+    price: "100"
+  - id: rear_bench
+    price: "130"
+  - id: headliner
+    price: "100–120"
+  - id: trunk
+    price: "80"
+  - id: complete_cleaning
+    price: "500"

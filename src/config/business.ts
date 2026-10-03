@@ -1,12 +1,20 @@
 import { parse } from 'yaml';
 import businessSource from '../data/business.yml?raw';
-import type { PriceCategory } from '../data/catalog';
 
 interface BusinessConfig {
   brand: string;
   copyright_year: number;
   currency: string;
-  prices: Record<PriceCategory, string>;
+  contact: {
+    phone: string;
+    email: string;
+    whatsapp: string;
+    working_hours: {
+      monday_friday: string;
+      saturday: string;
+      sunday: string;
+    };
+  };
 }
 
 export const businessConfig = parse(businessSource) as BusinessConfig;

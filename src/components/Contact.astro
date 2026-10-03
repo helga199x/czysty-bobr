@@ -1,4 +1,5 @@
 ---
+import { businessConfig } from '../config/business';
 import type { LocaleMessages } from '../config/locales';
 
 interface Props {
@@ -6,6 +7,10 @@ interface Props {
 }
 
 const { messages } = Astro.props;
+const contact = businessConfig.contact;
+const phoneHref = contact.phone ? `tel:${contact.phone.replace(/[^\d+]/g, '')}` : undefined;
+const whatsappNumber = contact.whatsapp.replace(/\D/g, '');
+const whatsappHref = whatsappNumber ? `https://wa.me/${whatsappNumber}` : undefined;
 ---
 
 <section class="contact-callout" aria-labelledby="callout-title">
@@ -25,18 +30,31 @@ const { messages } = Astro.props;
       <h2 id="contact-title">{messages.contact.title}</h2>
       <p>{messages.contact.description}</p>
     </div>
-    <form class="contact-form" data-contact-form>
-      <label for="contact-name">{messages.contact.name}</label>
-      <input class="field" id="contact-name" name="name" autocomplete="name" required />
-      <label for="contact-phone">{messages.contact.phone}</label>
-      <input class="field" id="contact-phone" name="phone" type="tel" autocomplete="tel" />
-      <label for="contact-email">{messages.contact.email}</label>
-      <input class="field" id="contact-email" name="email" type="email" autocomplete="email" />
-      <label for="contact-message">{messages.contact.message}</label>
-      <textarea class="field" id="contact-message" name="message" rows="4"></textarea>
-      <button class="button form-submit" type="submit">{messages.contact.submit}<span aria-hidden="true">→</span></button>
-      <p class="form-note">{messages.contact.demo_note}</p>
-      <p class="form-status" data-form-status role="status" aria-live="polite" hidden></p>
-    </form>
+    <div class="contact-methods">
+      <article class="contact-method">
+        <h3>{messages.contact.phone}</h3>
+        {phoneHref ? <a href={phoneHref}>{contact.phone}</a> : <p>{messages.contact.not_provided}</p>}
+      </article>
+      <article class="contact-method">
+        <h3>{messages.contact.whatsapp}</h3>
+        {whatsappHref
+          ? <a href={whatsappHref} target="_blank" rel="noopener noreferrer">{contact.whatsapp}</a>
+          : <p>{messages.contact.not_provided}</p>}
+      </article>
+      <article class="contact-method">
+        <h3>{messages.contact.email}</h3>
+        {contact.email
+          ? <a href={`mailto:${contact.email}`}>{contact.email}</a>
+          : <p>{messages.contact.not_provided}</p>}
+      </article>
+      <article class="contact-method contact-hours">
+        <h3>{messages.contact.working_hours}</h3>
+        <dl>
+          <div><dt>{messages.contact.monday_friday}</dt><dd>{contact.working_hours.monday_friday || messages.contact.not_provided}</dd></div>
+          <div><dt>{messages.contact.saturday}</dt><dd>{contact.working_hours.saturday || messages.contact.not_provided}</dd></div>
+          <div><dt>{messages.contact.sunday}</dt><dd>{contact.working_hours.sunday || messages.contact.not_provided}</dd></div>
+        </dl>
+      </article>
+    </div>
   </div>
 </section>

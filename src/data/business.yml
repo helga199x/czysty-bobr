@@ -1,7 +1,11 @@
 brand: "Czysty Bóbr"
 copyright_year: 2026
 currency: "zł"
-prices:
-  chair: "XX"
-  sofa: "XX"
-  car: "XX"
+contact:
+  phone: ""
+  email: ""
+  whatsapp: ""
+  working_hours:
+    monday_friday: ""
+    saturday: ""
+    sunday: ""

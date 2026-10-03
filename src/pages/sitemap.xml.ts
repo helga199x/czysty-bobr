@@ -1,21 +1,27 @@
 import { siteConfig } from '../config/site';
 
-const localePaths = siteConfig.locales.map((locale) => ({
-  locale,
-  path: locale === siteConfig.defaultLocale ? '/' : `/${locale}/`,
-}));
+const pageGroups = [
+  siteConfig.locales.map((locale) => ({
+    locale,
+    path: locale === siteConfig.defaultLocale ? '/' : `/${locale}/`,
+  })),
+  siteConfig.locales.map((locale) => ({
+    locale,
+    path: locale === siteConfig.defaultLocale ? '/cennik/' : `/${locale}/pricing/`,
+  })),
+];
 
 export function GET({ site }: { site?: URL }) {
   const entries = site
-    ? localePaths.map(({ path }) => {
-        const alternates = localePaths
+    ? pageGroups.flatMap((group) => group.map(({ path }) => {
+        const alternates = group
           .map(({ locale, path: alternatePath }) =>
             `<xhtml:link rel="alternate" hreflang="${locale}" href="${new URL(alternatePath, site)}" />`,
           )
           .join('');
 
         return `<url><loc>${new URL(path, site)}</loc>${alternates}</url>`;
-      }).join('')
+      })).join('')
     : '';
   const xml = [
     '<?xml version="1.0" encoding="UTF-8"?>',

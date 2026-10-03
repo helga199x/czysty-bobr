@@ -1,0 +1,52 @@
+---
+import { catalogConfig } from '../config/catalog';
+import { businessConfig } from '../config/business';
+import type { LocaleMessages } from '../config/locales';
+
+interface Props {
+  messages: LocaleMessages;
+}
+
+const { messages } = Astro.props;
+---
+
+<section class="content-section full-pricing" aria-labelledby="full-pricing-title">
+  <div class="container">
+    <header class="pricing-page-heading">
+      <h1 id="full-pricing-title">{messages.pricing.page_title}</h1>
+      <p>{messages.pricing.page_description}</p>
+    </header>
+
+    <section class="full-price-section" aria-labelledby="furniture-prices-title">
+      <h2 id="furniture-prices-title">{messages.pricing.furniture_category}</h2>
+      <div class="full-price-table" role="table" aria-label={messages.pricing.furniture_category}>
+        <div class="full-price-row full-price-head" role="row">
+          <span role="columnheader">{messages.pricing.service_column}</span>
+          <span role="columnheader">{messages.pricing.price_column}</span>
+        </div>
+        {catalogConfig.furniture.map((item) => (
+          <div class="full-price-row" role="row">
+            <span role="cell">{messages.pricing.services[item.id]}</span>
+            <strong role="cell">{item.price} {businessConfig.currency}</strong>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <section class="full-price-section" aria-labelledby="car-prices-title">
+      <h2 id="car-prices-title">{messages.pricing.cars_category}</h2>
+      <div class="full-price-table" role="table" aria-label={messages.pricing.cars_category}>
+        <div class="full-price-row full-price-head" role="row">
+          <span role="columnheader">{messages.pricing.service_column}</span>
+          <span role="columnheader">{messages.pricing.price_column}</span>
+        </div>
+        {catalogConfig.cars.map((item) => (
+          <div class="full-price-row" role="row">
+            <span role="cell">{messages.pricing.services[item.id]}</span>
+            <strong role="cell">{item.price} {businessConfig.currency}</strong>
+          </div>
+        ))}
+      </div>
+    </section>
+  </div>
+</section>

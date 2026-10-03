@@ -6,12 +6,16 @@ import type { LocaleMessages } from '../config/locales';
 interface Props {
   locale: LocaleCode;
   messages: LocaleMessages;
+  pageKind: 'home' | 'pricing';
 }
 
-const { locale, messages } = Astro.props;
+const { locale, messages, pageKind } = Astro.props;
 const locales = siteConfig.locales;
 const [brandLead, ...brandRest] = businessConfig.brand.split(' ');
 const localeHref = (code: LocaleCode) => code === 'pl' ? '/' : `/${code}/`;
+const pricingHref = (code: LocaleCode) => code === 'pl' ? '/cennik/' : `/${code}/pricing/`;
+const languageHref = (code: LocaleCode) => pageKind === 'pricing' ? pricingHref(code) : localeHref(code);
+const homeSectionHref = (id: string) => pageKind === 'home' ? `#${id}` : `${localeHref(locale)}#${id}`;
 ---
 
 <header class="site-header">
@@ -20,16 +24,16 @@ const localeHref = (code: LocaleCode) => code === 'pl' ? '/' : `/${code}/`;
       {brandLead} <span>{brandRest.join(' ')}</span>
     </a>
     <nav class="desktop-nav" aria-label={messages.navigation.label}>
-      <a href="#uslugi">{messages.navigation.services}</a>
-      <a href="#cennik">{messages.navigation.pricing}</a>
-      <a href="#efekty">{messages.navigation.results}</a>
-      <a href="#kontakt">{messages.navigation.contact}</a>
+      <a href={homeSectionHref('uslugi')}>{messages.navigation.services}</a>
+      <a href={pricingHref(locale)} aria-current={pageKind === 'pricing' ? 'page' : undefined}>{messages.navigation.pricing}</a>
+      <a href={homeSectionHref('efekty')}>{messages.navigation.results}</a>
+      <a href={homeSectionHref('kontakt')}>{messages.navigation.contact}</a>
     </nav>
     <div class="header-actions">
       <nav class="language-nav" aria-label={messages.navigation.languages}>
         {locales.map((code) => (
           <a
-            href={localeHref(code)}
+            href={languageHref(code)}
             lang={code}
             aria-current={locale === code ? 'page' : undefined}
             aria-label={messages.languages[code]}
@@ -38,15 +42,15 @@ const localeHref = (code: LocaleCode) => code === 'pl' ? '/' : `/${code}/`;
           </a>
         ))}
       </nav>
-      <a class="button button-small" href="#kontakt">{messages.navigation.quote}</a>
+      <a class="button button-small" href={homeSectionHref('kontakt')}>{messages.navigation.quote}</a>
     </div>
     <details class="mobile-menu">
       <summary aria-label={messages.navigation.open_menu}><span></span><span></span><span></span></summary>
       <nav aria-label={messages.navigation.label}>
-        <a href="#uslugi">{messages.navigation.services}</a>
-        <a href="#cennik">{messages.navigation.pricing}</a>
-        <a href="#efekty">{messages.navigation.results}</a>
-        <a href="#kontakt">{messages.navigation.contact}</a>
+        <a href={homeSectionHref('uslugi')}>{messages.navigation.services}</a>
+        <a href={pricingHref(locale)} aria-current={pageKind === 'pricing' ? 'page' : undefined}>{messages.navigation.pricing}</a>
+        <a href={homeSectionHref('efekty')}>{messages.navigation.results}</a>
+        <a href={homeSectionHref('kontakt')}>{messages.navigation.contact}</a>
       </nav>
     </details>
   </div>
