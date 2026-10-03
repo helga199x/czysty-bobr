@@ -1,0 +1,20 @@
+---
+import Hero from './Hero.astro';
+import Services from './Services.astro';
+import Pricing from './Pricing.astro';
+import Results from './Results.astro';
+import Contact from './Contact.astro';
+import type { LocaleMessages } from '../config/locales';
+
+interface Props {
+  messages: LocaleMessages;
+}
+
+const { messages } = Astro.props;
+---
+
+<Hero messages={messages} />
+<Services messages={messages} />
+<Pricing messages={messages} />
+<Results messages={messages} />
+<Contact messages={messages} />

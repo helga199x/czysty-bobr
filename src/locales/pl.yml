@@ -1,0 +1,77 @@
+seo:
+  title_suffix: "Pranie tapicerki i czyszczenie aut"
+  description: "Profesjonalne czyszczenie mebli i wnętrz samochodów z dojazdem do klienta."
+  og_locale: "pl_PL"
+site:
+  home_label: "strona główna"
+navigation:
+  label: "Nawigacja główna"
+  services: "Usługi"
+  pricing: "Cennik"
+  results: "Efekty"
+  contact: "Kontakt"
+  quote: "Wycena"
+  languages: "Wybierz język"
+  open_menu: "Otwórz menu"
+languages:
+  pl: "Polski"
+  en: "English"
+  uk: "Українська"
+  ru: "Русский"
+hero:
+  eyebrow: "Profesjonalne czyszczenie z dojazdem"
+  title: "Czystość, którą"
+  title_accent: "widać."
+  description: "Pranie tapicerki meblowej i samochodowej. Dojeżdżamy do Ciebie i przywracamy świeżość temu, co używasz każdego dnia."
+  primary_action: "Umów czyszczenie"
+  secondary_action: "Zobacz usługi"
+  brand_art_label: "Znak firmowy"
+  brand_caption: "Mobilne czyszczenie"
+services:
+  title: "Co czyścimy?"
+  description: "Mobilna usługa bez konieczności wożenia mebli czy samochodu do salonu."
+  items:
+    furniture:
+      title: "Meble tapicerowane"
+      description: "Sofy, narożniki, fotele, krzesła i inne elementy tapicerowane."
+    car:
+      title: "Wnętrza samochodów"
+      description: "Fotele, kanapy, boczki i pozostała tapicerka samochodowa."
+    textiles:
+      title: "Materace i tekstylia"
+      description: "Dokładne czyszczenie powierzchni, które wymagają odświeżenia."
+pricing:
+  title: "Cennik"
+  description: "Ceny są orientacyjne. Ostateczna wycena zależy od rozmiaru, materiału i stopnia zabrudzenia."
+  from: "od"
+  items:
+    chair:
+      name: "Krzesło / fotel"
+      note: "wycena przed usługą"
+    sofa:
+      name: "Sofa"
+      note: "zależnie od rozmiaru"
+    car:
+      name: "Auto"
+      note: "w zależności od zakresu"
+results:
+  title: "Przed i po"
+  description: "W tej sekcji można umieścić prawdziwe zdjęcia wykonanych realizacji."
+  before: "Zdjęcie przed czyszczeniem"
+  after: "Zdjęcie po czyszczeniu"
+callout:
+  title: "Potrzebujesz wyceny?"
+  description: "Napisz lub zadzwoń — ustalimy zakres i dogodny termin."
+  action: "Skontaktuj się"
+contact:
+  eyebrow: "Porozmawiajmy"
+  title: "Kontakt"
+  description: "Opisz, co wymaga czyszczenia. Dane kontaktowe do właściciela należy uzupełnić przed publikacją."
+  name: "Imię"
+  phone: "Numer telefonu"
+  email: "E-mail"
+  message: "Co chcesz wyczyścić?"
+  submit: "Wyślij zapytanie"
+  demo_note: "Formularz demonstracyjny: wysyłka nie jest jeszcze podłączona."
+footer:
+  description: "Mobilne czyszczenie mebli i aut"

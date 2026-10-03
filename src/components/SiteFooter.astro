@@ -1,0 +1,17 @@
+---
+import { businessConfig } from '../config/business';
+import type { LocaleMessages } from '../config/locales';
+
+interface Props {
+  messages: LocaleMessages;
+}
+
+const { messages } = Astro.props;
+---
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <p>© {businessConfig.copyright_year} {businessConfig.brand.toUpperCase()}</p>
+    <p>{messages.footer.description}</p>
+  </div>
+</footer>

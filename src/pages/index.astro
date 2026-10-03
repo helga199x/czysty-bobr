@@ -1,0 +1,13 @@
+---
+import SiteLayout from '../layouts/SiteLayout.astro';
+import HomePage from '../components/HomePage.astro';
+import { getTranslations } from '../config/locales';
+import { siteConfig } from '../config/site';
+
+const locale = siteConfig.defaultLocale;
+const messages = getTranslations(locale);
+---
+
+<SiteLayout locale={locale} messages={messages} canonicalPath="/">
+  <HomePage messages={messages} />
+</SiteLayout>

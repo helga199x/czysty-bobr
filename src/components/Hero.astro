@@ -1,0 +1,30 @@
+---
+import type { LocaleMessages } from '../config/locales';
+import { businessConfig } from '../config/business';
+
+interface Props {
+  messages: LocaleMessages;
+}
+
+const { messages } = Astro.props;
+---
+
+<section class="hero" aria-labelledby="hero-title">
+  <div class="container hero-grid">
+    <div class="hero-copy">
+      <p class="eyebrow">{messages.hero.eyebrow}</p>
+      <h1 id="hero-title">{messages.hero.title}<br /><span>{messages.hero.title_accent}</span></h1>
+      <p class="hero-description">{messages.hero.description}</p>
+      <div class="hero-actions">
+        <a class="button" href="#kontakt">{messages.hero.primary_action}<span aria-hidden="true">→</span></a>
+        <a class="button button-outline" href="#uslugi">{messages.hero.secondary_action}</a>
+      </div>
+    </div>
+    <div class="hero-mark" aria-label={messages.hero.brand_art_label} role="img">
+      <span class="hero-mark-ring" aria-hidden="true"></span>
+      <span class="hero-mark-letter" aria-hidden="true">{businessConfig.brand.split(' ').at(-1)?.slice(0, 1).toUpperCase()}</span>
+      <span class="hero-mark-name" aria-hidden="true">{businessConfig.brand.toUpperCase()}</span>
+      <span class="hero-mark-caption" aria-hidden="true">{messages.hero.brand_caption}</span>
+    </div>
+  </div>
+</section>

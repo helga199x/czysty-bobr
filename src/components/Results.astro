@@ -1,0 +1,28 @@
+---
+import type { LocaleMessages } from '../config/locales';
+
+interface Props {
+  messages: LocaleMessages;
+}
+
+const { messages } = Astro.props;
+---
+
+<section id="efekty" class="content-section" aria-labelledby="results-title">
+  <div class="container">
+    <div class="section-heading">
+      <h2 id="results-title">{messages.results.title}</h2>
+      <p>{messages.results.description}</p>
+    </div>
+    <div class="results-grid">
+      <figure class="result-placeholder">
+        <span aria-hidden="true">01</span>
+        <figcaption>{messages.results.before}</figcaption>
+      </figure>
+      <figure class="result-placeholder result-after">
+        <span aria-hidden="true">02</span>
+        <figcaption>{messages.results.after}</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>

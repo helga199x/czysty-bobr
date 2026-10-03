@@ -1,0 +1,32 @@
+---
+import { priceCategories } from '../data/catalog';
+import { businessConfig } from '../config/business';
+import type { LocaleMessages } from '../config/locales';
+
+interface Props {
+  messages: LocaleMessages;
+}
+
+const { messages } = Astro.props;
+---
+
+<section id="cennik" class="content-section pricing-section" aria-labelledby="pricing-title">
+  <div class="container">
+    <div class="section-heading">
+      <h2 id="pricing-title">{messages.pricing.title}</h2>
+      <p>{messages.pricing.description}</p>
+    </div>
+    <div class="price-grid">
+      {priceCategories.map((category) => {
+        const item = messages.pricing.items[category];
+        return (
+        <article class="price-item">
+          <h3>{item.name}</h3>
+          <p class="price-amount">{messages.pricing.from} {businessConfig.prices[category]} {businessConfig.currency}</p>
+          <p class="price-note">{item.note}</p>
+        </article>
+        );
+      })}
+    </div>
+  </div>
+</section>

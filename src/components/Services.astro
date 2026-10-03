@@ -1,0 +1,32 @@
+---
+import { services } from '../data/catalog';
+import type { LocaleMessages } from '../config/locales';
+
+interface Props {
+  messages: LocaleMessages;
+}
+
+const { messages } = Astro.props;
+---
+
+<section id="uslugi" class="content-section" aria-labelledby="services-title">
+  <div class="container">
+    <div class="section-heading">
+      <h2 id="services-title">{messages.services.title}</h2>
+      <p>{messages.services.description}</p>
+    </div>
+    <div class="service-grid">
+      {services.map((service, index) => {
+        const copy = messages.services.items[service.id];
+        return (
+        <article class="service-item">
+          <span class="service-number">0{index + 1}</span>
+          <span class="service-icon" aria-hidden="true">{service.icon}</span>
+          <h3>{copy.title}</h3>
+          <p>{copy.description}</p>
+        </article>
+        );
+      })}
+    </div>
+  </div>
+</section>

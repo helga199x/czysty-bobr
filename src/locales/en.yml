@@ -1,0 +1,77 @@
+seo:
+  title_suffix: "Upholstery and car interior cleaning"
+  description: "Professional furniture and car interior cleaning at your location."
+  og_locale: "en_GB"
+site:
+  home_label: "home"
+navigation:
+  label: "Main navigation"
+  services: "Services"
+  pricing: "Pricing"
+  results: "Results"
+  contact: "Contact"
+  quote: "Get a quote"
+  languages: "Choose language"
+  open_menu: "Open menu"
+languages:
+  pl: "Polski"
+  en: "English"
+  uk: "Українська"
+  ru: "Русский"
+hero:
+  eyebrow: "Professional cleaning at your location"
+  title: "Clean you can"
+  title_accent: "see."
+  description: "Upholstery and car interior cleaning at your home. We come to you and restore freshness to the things you use every day."
+  primary_action: "Book a cleaning"
+  secondary_action: "Explore services"
+  brand_art_label: "Brand mark"
+  brand_caption: "Mobile cleaning"
+services:
+  title: "What we clean"
+  description: "A mobile service, so there is no need to bring your furniture or car to a shop."
+  items:
+    furniture:
+      title: "Upholstered furniture"
+      description: "Sofas, corner sofas, armchairs, chairs and other upholstered items."
+    car:
+      title: "Car interiors"
+      description: "Seats, benches, door panels and other car upholstery."
+    textiles:
+      title: "Mattresses and textiles"
+      description: "Thorough cleaning for surfaces that need freshening up."
+pricing:
+  title: "Pricing"
+  description: "Prices are indicative. The final quote depends on size, material and level of soiling."
+  from: "from"
+  items:
+    chair:
+      name: "Chair / armchair"
+      note: "quote before service"
+    sofa:
+      name: "Sofa"
+      note: "depending on size"
+    car:
+      name: "Car"
+      note: "depending on the scope"
+results:
+  title: "Before and after"
+  description: "This section can showcase real photos of completed cleaning jobs."
+  before: "Photo before cleaning"
+  after: "Photo after cleaning"
+callout:
+  title: "Need a quote?"
+  description: "Get in touch and we will agree on the service and a convenient time."
+  action: "Contact us"
+contact:
+  eyebrow: "Let's talk"
+  title: "Contact"
+  description: "Tell us what needs cleaning. The owner's contact details need to be added before launch."
+  name: "Name"
+  phone: "Phone number"
+  email: "Email"
+  message: "What would you like cleaned?"
+  submit: "Send an enquiry"
+  demo_note: "Demo form: message delivery has not been connected yet."
+footer:
+  description: "Mobile furniture and car cleaning"

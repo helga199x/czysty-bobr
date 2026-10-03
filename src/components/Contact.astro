@@ -1,0 +1,42 @@
+---
+import type { LocaleMessages } from '../config/locales';
+
+interface Props {
+  messages: LocaleMessages;
+}
+
+const { messages } = Astro.props;
+---
+
+<section class="contact-callout" aria-labelledby="callout-title">
+  <div class="container callout-inner">
+    <div>
+      <h2 id="callout-title">{messages.callout.title}</h2>
+      <p>{messages.callout.description}</p>
+    </div>
+    <a class="button button-light" href="#kontakt">{messages.callout.action}<span aria-hidden="true">→</span></a>
+  </div>
+</section>
+
+<section id="kontakt" class="content-section contact-section" aria-labelledby="contact-title">
+  <div class="container contact-grid">
+    <div class="contact-intro">
+      <p class="eyebrow">{messages.contact.eyebrow}</p>
+      <h2 id="contact-title">{messages.contact.title}</h2>
+      <p>{messages.contact.description}</p>
+    </div>
+    <form class="contact-form" data-contact-form>
+      <label for="contact-name">{messages.contact.name}</label>
+      <input class="field" id="contact-name" name="name" autocomplete="name" required />
+      <label for="contact-phone">{messages.contact.phone}</label>
+      <input class="field" id="contact-phone" name="phone" type="tel" autocomplete="tel" />
+      <label for="contact-email">{messages.contact.email}</label>
+      <input class="field" id="contact-email" name="email" type="email" autocomplete="email" />
+      <label for="contact-message">{messages.contact.message}</label>
+      <textarea class="field" id="contact-message" name="message" rows="4"></textarea>
+      <button class="button form-submit" type="submit">{messages.contact.submit}<span aria-hidden="true">→</span></button>
+      <p class="form-note">{messages.contact.demo_note}</p>
+      <p class="form-status" data-form-status role="status" aria-live="polite" hidden></p>
+    </form>
+  </div>
+</section>

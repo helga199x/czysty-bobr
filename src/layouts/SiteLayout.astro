@@ -1,0 +1,52 @@
+---
+import '../styles/global.css';
+import { siteConfig, type LocaleCode } from '../config/site';
+import SiteHeader from '../components/SiteHeader.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+import { businessConfig } from '../config/business';
+import type { LocaleMessages } from '../config/locales';
+
+interface Props {
+  locale: LocaleCode;
+  messages: LocaleMessages;
+  canonicalPath: string;
+}
+
+const { locale, messages, canonicalPath } = Astro.props;
+const canonicalUrl = Astro.site ? new URL(canonicalPath, Astro.site).toString() : undefined;
+const alternateLocales = siteConfig.locales.map((code) => ({
+  code,
+  href: code === siteConfig.defaultLocale ? '/' : `/${code}/`,
+}));
+---
+
+<!doctype html>
+<html lang={locale}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={messages.seo.description} />
+    <meta name="theme-color" content="#080c10" />
+    <title>{businessConfig.brand} | {messages.seo.title_suffix}</title>
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={businessConfig.brand} />
+    <meta property="og:title" content={`${businessConfig.brand} | ${messages.seo.title_suffix}`} />
+    <meta property="og:description" content={messages.seo.description} />
+    <meta property="og:locale" content={messages.seo.og_locale} />
+    {canonicalUrl && <link rel="canonical" href={canonicalUrl} />}
+    {canonicalUrl && <meta property="og:url" content={canonicalUrl} />}
+    {Astro.site && alternateLocales.map(({ code, href }) => (
+      <link rel="alternate" hreflang={code} href={Astro.site ? new URL(href, Astro.site).toString() : href} />
+    ))}
+    {Astro.site && <link rel="alternate" hreflang="x-default" href={Astro.site.toString()} />}
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  </head>
+  <body>
+    <SiteHeader locale={locale} messages={messages} />
+    <main>
+      <slot />
+    </main>
+    <SiteFooter messages={messages} />
+    <script>import '../scripts/contact-form.js';</script>
+  </body>
+</html>
