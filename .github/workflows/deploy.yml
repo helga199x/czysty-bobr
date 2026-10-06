@@ -19,7 +19,7 @@ jobs:
       contents: read
       pages: read
     env:
-      SITE_URL: https://helga199x.github.io
+      SITE_URL: https://www.czystybobr.pl
     steps:
       - name: Checkout
         uses: actions/checkout@v5

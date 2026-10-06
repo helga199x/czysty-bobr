@@ -45,13 +45,13 @@ npm run build
 npm run preview
 ```
 
-The generated static files are written to `dist/`. Node.js is not required on the server after deployment. The site is configured with the `/czysty-bobr/` base path, including local development and preview URLs.
+The generated static files are written to `dist/`. Node.js is not required on the server after deployment. The site is configured to run from the domain root.
 
 ## GitHub Pages Deployment
 
-The public URL is `https://helga199x.github.io/czysty-bobr/`. No custom domain, backend, API keys, or repository secrets are required.
+The public URL is `https://www.czystybobr.pl/`. Configure `www.czystybobr.pl` as the custom domain in GitHub Pages and point its DNS records to GitHub Pages. No backend, API keys, or repository secrets are required.
 
-In `helga199x/czysty-bobr`, open **Settings > Pages** and select **GitHub Actions** as the source under **Build and deployment**. Leave **Custom domain** empty. If Actions are disabled, enable the required GitHub actions under **Settings > Actions > General**. If the `github-pages` environment has deployment branch restrictions, allow `master`.
+In the repository, open **Settings > Pages**, select **GitHub Actions** as the source under **Build and deployment**, and set **Custom domain** to `www.czystybobr.pl`. The `public/CNAME` file preserves this domain in the deployed artifact. Enable the required GitHub actions under **Settings > Actions > General** if needed. If the `github-pages` environment has deployment branch restrictions, allow `master`.
 
 The workflow in `.github/workflows/deploy.yml` runs on pushes to `master` or manually from **Actions > Deploy to GitHub Pages > Run workflow**. It uses Node.js 22, runs `npm ci`, `npm run check`, and `npm run build`, uploads `dist/`, and deploys it to Pages. Deployment requires a successful build. The workflow grants Pages write and OIDC permissions only to the deployment job.
 
@@ -65,7 +65,7 @@ After pushing, wait for both workflow jobs to succeed before opening the public 
 - Russian: `src/locales/ru.yml`, URL `/ru/`.
 - Full price list: `/cennik/`, `/en/pricing/`, `/uk/pricing/`, `/ru/pricing/`.
 
-All these routes are prefixed with `/czysty-bobr/` in browser URLs. Use `withBase` from `src/config/paths.ts` for internal links and public asset paths.
+These routes are served directly from the domain root. Use `withBase` from `src/config/paths.ts` for internal links and public asset paths.
 
 To add a language, create a YAML file with the same key structure as `pl.yml`, add the locale code to `src/config/site.ts`, import the file, and add it to the map in `src/config/locales.ts`. Add the corresponding price-list path in `src/components/SiteHeader.astro` and `src/pages/sitemap.xml.ts`. Translate all sections, then run `npm run check` and `npm run build`.
 
@@ -77,18 +77,18 @@ The Before/After section is currently disabled by the `effects` and `beforeAfter
 
 ## Environment Variables
 
-The project does not use secrets or API keys. The default `site` is `https://helga199x.github.io` and the `base` is `/czysty-bobr`, so SEO URLs and the sitemap work without a `.env` file. The Pages workflow explicitly sets `SITE_URL` to that origin. An optional `SITE_URL` override in `.env` must contain the origin only, without the base path; `.env.example` shows the Pages value.
+The project does not use secrets or API keys. The default `site` is `https://www.czystybobr.pl` and the `base` is `/`, so SEO URLs and the sitemap work without a `.env` file. The Pages workflow explicitly sets `SITE_URL` to that origin. An optional `SITE_URL` override in `.env` must contain the origin only, without a path; `.env.example` shows the Pages value.
 
 ## Search Engine Setup
 
 Each of the eight pages has localized title/description, a self-referencing canonical, PL/EN/UK/RU alternates and an `x-default` pointing to the Polish equivalent. Open Graph and Twitter cards use the existing 1200 x 630 brand image. The shared layout publishes factual LocalBusiness JSON-LD from the business and catalog configuration, without invented addresses, coordinates, ratings or reviews. Without a postal address, Google LocalBusiness rich-result eligibility is not guaranteed.
 
-After deployment, add a **URL-prefix** property for `https://helga199x.github.io/czysty-bobr/` in Google Search Console. Do not choose DNS-based Domain verification for `github.io`, which you do not own.
+After deployment, add a **URL-prefix** property for `https://www.czystybobr.pl/` in Google Search Console. DNS-based Domain verification is also available if you control the domain.
 
 1. Select HTML file verification and download Google's exact verification file.
-2. Place that unmodified file in `public/`, deploy, and check that the URL specified by Google serves it successfully under `/czysty-bobr/`.
+2. Place that unmodified file in `public/`, deploy, and check that the URL specified by Google serves it successfully from the domain root.
 3. Complete verification and retain the file for future ownership checks.
-4. Submit `https://helga199x.github.io/czysty-bobr/sitemap.xml` in Sitemaps.
+4. Submit `https://www.czystybobr.pl/sitemap.xml` in Sitemaps.
 5. Use URL Inspection and the live test for the home pages and pricing pages, then request indexing where appropriate. Monitor Page indexing for crawl errors and canonical selection.
 
 No verification file or token is fabricated in this repository. Verification does not require a tracking script. Indexing and rich results are not guaranteed by metadata alone.
@@ -101,6 +101,6 @@ No verification file or token is fabricated in this repository. Verification doe
 
 - Verify the phone number, email, WhatsApp number, and business hours in `src/data/business.yml`.
 - Verify real photos of completed work before enabling the Before/After gallery.
-- Verify that generated SEO URLs use `https://helga199x.github.io/czysty-bobr/`.
+- Verify that generated SEO URLs use `https://www.czystybobr.pl/`.
 
-Astro generates `dist/robots.txt` and `dist/sitemap.xml`. GitHub Pages serves them under `/czysty-bobr/`; the project-level robots file cannot control the account-wide root `/robots.txt`. Publish `dist/` through the Pages workflow; no application server is required.
+Astro generates `dist/robots.txt` and `dist/sitemap.xml` at the domain root. Publish `dist/` through the Pages workflow; no application server is required.
